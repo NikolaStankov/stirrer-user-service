@@ -15,9 +15,9 @@ export class User {
   @Column()
   displayName: string;
 
-  @Column({ nullable: true })
-  profilePictureUrl: string;
-
   @Column({ default: false })
   profileCompleted: boolean;
+
+  @Column({ nullable: true })
+  imageId: string;
 }

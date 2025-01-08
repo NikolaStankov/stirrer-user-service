@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { ImageService } from './services/image.service';
 import { ImageController } from './controllers/image.controller';
-import { ImageMetadata, ImageMetadataSchema } from './schemas/image.schema';
+import { MulterModule } from '@nestjs/platform-express';
+import { GridFSMulterConfigService } from './config/grifs-multer.config.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: ImageMetadata.name, schema: ImageMetadataSchema },
-    ]),
+    MulterModule.registerAsync({
+      useClass: GridFSMulterConfigService,
+    }),
   ],
-  providers: [ImageService],
+  providers: [ImageService, GridFSMulterConfigService],
   controllers: [ImageController],
   exports: [ImageService],
 })
